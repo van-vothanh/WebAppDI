@@ -1,5 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
 namespace CasCap
 {
     public interface IDITestService
@@ -15,12 +13,13 @@ namespace CasCap
     {
         public List<int> GetIntValues()
         {
-            return new List<int> { DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day, DateTime.UtcNow.Minute, DateTime.UtcNow.Second };
+            var now = DateTime.UtcNow;
+            return [now.Year, now.Month, now.Day, now.Minute, now.Second];
         }
 
         public List<string> GetStringValues()
         {
-            return new List<string> { Environment.MachineName, DateTime.UtcNow.ToString() };
+            return [Environment.MachineName, DateTime.UtcNow.ToString()];
         }
     }
 }
