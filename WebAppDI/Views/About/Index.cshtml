@@ -1,15 +1,15 @@
 ﻿@model CasCap.ViewModels.IndexViewModel
 @{
-    ViewBag.Title = "About";
+    ViewData["Title"] = "About";
 }
 
 <div class="row">
     <div class="col-md-4">
-        <h2>Dependency Injection in ASP.NET MVC - MVC Controller in Class Library</h2>
+        <h2>Dependency Injection in ASP.NET Core - MVC Controller in Class Library</h2>
         <p>
             @if (Model.SomeIntValues != null && Model.SomeIntValues.Any())
             {
-                <div>SomeIntValues;</div>
+                <div>SomeIntValues:</div>
                 <ul>
                     @foreach (var value in Model.SomeIntValues)
                     {
@@ -23,7 +23,7 @@
         <p>
             @if (Model.SomeStringValues != null && Model.SomeStringValues.Any())
             {
-                <div>SomeStringValues;</div>
+                <div>SomeStringValues:</div>
                 <ul>
                     @foreach (var value in Model.SomeStringValues)
                     {
