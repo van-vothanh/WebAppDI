@@ -1,12 +1,13 @@
 ﻿using CasCap.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System.Web.Mvc;
+
 namespace CasCap.Controllers
 {
     public class AboutController : Controller
     {
-        readonly ILogger<AboutController> _logger;
-        readonly IDITestService _diTestSvc;
+        private readonly ILogger<AboutController> _logger;
+        private readonly IDITestService _diTestSvc;
 
         public AboutController(ILogger<AboutController> logger, IDITestService diTestSvc)
         {
@@ -14,7 +15,7 @@ namespace CasCap.Controllers
             _diTestSvc = diTestSvc;
         }
 
-        public ActionResult Index()
+        public IActionResult Index()
         {
             var vm = new IndexViewModel
             {
