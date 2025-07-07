@@ -1,6 +1,7 @@
 ﻿using CasCap.ViewModels;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using System.Web.Mvc;
+
 namespace CasCap.Controllers
 {
     public class HomeController : Controller
@@ -14,7 +15,7 @@ namespace CasCap.Controllers
             _diTestSvc = diTestSvc;
         }
 
-        public ActionResult Index()
+        public IActionResult Index()
         {
             var vm = new IndexViewModel
             {
@@ -22,6 +23,11 @@ namespace CasCap.Controllers
                 SomeStringValues = _diTestSvc.GetStringValues()
             };
             return View(vm);
+        }
+
+        public IActionResult Error()
+        {
+            return View();
         }
     }
 }

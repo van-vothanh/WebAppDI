@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-namespace CasCap.ViewModels
+﻿namespace CasCap.ViewModels
 {
     public class IndexViewModel
     {
-        public List<int> SomeIntValues { get; set; }
-        public List<string> SomeStringValues { get; set; }
+        public List<int>? SomeIntValues { get; set; }
+        public List<string>? SomeStringValues { get; set; }
     }
 }
