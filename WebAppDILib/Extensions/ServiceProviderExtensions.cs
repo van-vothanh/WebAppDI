@@ -1,6 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
+using Microsoft.Extensions.DependencyInjection;
+
 namespace CasCap.Extensions
 {
     public static class ServiceProviderExtensions
