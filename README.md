@@ -1,40 +1,81 @@
-# Classic ASP.NET Web Application (.NET Framework) with Dependency Injection
+# ASP.NET Core Web Application (.NET 8) with Dependency Injection
 
-This repository was born out of a need for web/application developers to migrate their somewhat out-dated ASP.NET MVC web application using the .NET Framework to the newest ASP.NET MVC Core release.
+This repository demonstrates how to use dependency injection in an ASP.NET Core 8 web application. It has been modernized from the original .NET Framework 4.7.2 version to showcase the migration path to modern .NET.
 
-.NET Core as a fundamental rule uses dependency injection throughout, and ASP.NET Core is no exception to this rule, and yet a large number of traditional ASP.NET web applications do not use DI.
+This solution serves as an example for developers looking to migrate their legacy ASP.NET MVC applications to ASP.NET Core 8, demonstrating how dependency injection works seamlessly in the modern framework.
 
-Given that developers and development teams are not usually given a lot of time to break apart an existing application just because they want to run on the latest all-singing and all-dancing framework, this repository serves as a simple example of how you can add DI to an existing 4.7.2 application.
+The repository shows how to:
+- Use built-in dependency injection in ASP.NET Core 8
+- Structure controllers in both the main web application and external class libraries
+- Implement both MVC and Web API controllers with dependency injection
+- Set up logging using the modern Microsoft.Extensions.Logging framework
 
-Once you have added DI to your existing web application running under .NET Framework then a future migration to the .NET Core framework is much easier!
+This solution was built using Visual Studio and consists of:
+- **WebAppDI** - ASP.NET Core 8 Web Application utilizing both MVC & Web API controllers
+- **WebAppDILib** - .NET 8 class library containing additional controllers and services
+- **WebApp.Tests** - .NET 8 class library for unit tests
+- **AzurePipelines** - example [Azure Pipelines YAML build/test](https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azure-devops&tabs=schema) pipeline
 
-So this repository is a simple working example of how-to to get dependency injection and logging working in an older .NET Framework project using the [Microsoft.Extensions.DependencyInjection](https://www.nuget.org/packages/Microsoft.Extensions.DependencyInjection/) and [Microsoft.Extensions.Logging](https://www.nuget.org/packages/Microsoft.Extensions.Logging/) packages.
+## Migration Changes Made
 
-Note: Both of these Extenions nuget packages are multi-targeted and so will work seamlessly when you finally get around upgrade to .NET Core.
+The application has been successfully migrated from .NET Framework 4.7.2 to .NET 8 with the following key changes:
 
-This solution was built using Visual Studio and consists of;
-- WebAppDI - ASP.NET Web Application (.NET Framework) utilising both MVC & Web API controllers
-- WebAppDILib - .NET Framework class library.
-- WebAppDI.Tests - .NET Framework class library for example unit tests.
-- AzurePipelines - example [Azure Pipelines YAML build/test](https://docs.microsoft.com/en-us/azure/devops/pipelines/yaml-schema?view=azure-devops&tabs=schema) pipeline.
+### Project Structure Updates
+- Converted from old-style .csproj to modern SDK-style project files
+- Updated all projects to target .NET 8
+- Removed legacy configuration files (web.config, Global.asax, etc.)
+- Added modern configuration files (appsettings.json, appsettings.Development.json)
 
-Before implementing the dependency injection, I performed some maintenance on the default project templates created by Visual Studio;
-- I created a backup of all packages.config & web.config.
-- Uninstalled all nuget packages from the Web Application project and manually deleted all binding redirects in the web.config file.
-- Change Visual Studio to use nuget package reference ([see here](https://docs.microsoft.com/en-us/nuget/reference/migrate-packages-config-to-package-reference))
-- Re-installed the nuget packages 1-by-1 into the Web Application until the project compiled (note client libraries like jquery & bootstrap should be re-installed using [libman](https://github.com/aspnet/LibraryManager/wiki/Using-LibMan-in-Visual-Studio) however I skipped that step for the example)
-- Re-added some binding redirects into web.config which were explicitly required using values from the backup web.config taken in the first step!
+### Framework Migration
+- Migrated from ASP.NET MVC 5 to ASP.NET Core 8 MVC
+- Migrated from ASP.NET Web API 2 to ASP.NET Core 8 Web API
+- Updated from OWIN/Katana to ASP.NET Core's built-in hosting model
+- Replaced custom dependency resolvers with ASP.NET Core's built-in DI container
 
-The general steps I took to get DI working are as follows;
-- Added nuget packages Microsoft.Owin & Microsoft.Owin.Host.SystemWeb
-- Added a Startup.cs which contains the dependency resolvers for both MVC & Web API.
-- Added example MVC and Web API Controllers to both the main Web Application and the class library.
-- Created a test "service" to inject into both the Web API & MVC controllers called DITestService along with interface IDITestService.
+### Code Updates
+- Updated controllers to use `Microsoft.AspNetCore.Mvc` instead of `System.Web.Mvc`
+- Changed `ActionResult` to `IActionResult` for better async support
+- Updated Web API controllers to inherit from `ControllerBase` instead of `ApiController`
+- Modernized routing with attribute-based routing
+- Updated views to use ASP.NET Core Razor syntax
+- Added nullable reference types support
 
-The crucial code is in Startup.cs and in the Controller constructors which is where the dependency injection magic happens
+### Dependency Injection Simplification
+The original complex dependency injection setup with custom resolvers has been replaced with ASP.NET Core's built-in DI container, making the code much simpler and more maintainable.
 
-I hope this repository helps you on your journey to upgrade to ASP.NET Core...
+## Key Features
 
-Hope this helps...
+- **Built-in Dependency Injection**: Uses ASP.NET Core's native DI container
+- **Modern Logging**: Utilizes Microsoft.Extensions.Logging for structured logging
+- **Cross-Project Controllers**: Demonstrates how to use controllers from external class libraries
+- **Mixed MVC/API**: Shows both traditional MVC views and Web API endpoints in the same application
+- **Unit Testing**: Includes example unit tests using MSTest framework
+
+## Running the Application
+
+```bash
+# Build the solution
+dotnet build
+
+# Run tests
+dotnet test
+
+# Run the web application
+dotnet run --project WebAppDI
+```
+
+The application will be available at `https://localhost:5001` (HTTPS) or `http://localhost:5000` (HTTP).
+
+## API Endpoints
+
+- `GET /api/values/testdi` - Returns integer values from the DI test service
+- `GET /api/strings/testdi` - Returns string values from the DI test service
+
+## MVC Routes
+
+- `/` or `/Home` - Home page displaying DI test data
+- `/About` - About page displaying DI test data from the class library controller
+
+This modernized version demonstrates how legacy ASP.NET applications can be successfully migrated to ASP.NET Core 8 while maintaining functionality and improving maintainability.
 
 [![Build Status](https://dev.azure.com/f2calv/github/_apis/build/status/f2calv.WebAppDI?branchName=master)](https://dev.azure.com/f2calv/github/_build/latest?definitionId=1&branchName=master)

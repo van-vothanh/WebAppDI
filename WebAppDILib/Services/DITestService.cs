@@ -1,5 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
 namespace CasCap
 {
     public interface IDITestService
