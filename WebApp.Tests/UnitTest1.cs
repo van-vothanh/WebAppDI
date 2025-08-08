@@ -1,14 +1,13 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Xunit;
 namespace CasCap.Tests
 {
-    [TestClass]
     public class UnitTest1
     {
-        [TestMethod]
+        [Fact]
         public void TestMethod1()
         {
             var svc = new DITestService();
-            Assert.IsTrue(svc.GetIntValues().Count > 0);
+            Assert.True(svc.GetIntValues().Count > 0);
         }
     }
 }
